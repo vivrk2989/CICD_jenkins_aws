@@ -59,31 +59,44 @@ Jenkins is an Automation Server built by Java.
 - If the cloned folder contains .git file and if you dont want to be tracked to the parent directory, use `git rm -rf .git`
 
 ### CICD using jenkins
-- Create a new job in jenkins to create a constant integration pipeline
+1. Create a new job in jenkins to create a constant integration pipeline
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Building%20a%20job%20in%20jenkins.png)
-- click `new item` and the following page appears where u can provide a name to ur project and choose `Freestyle Project`
+2. click `new item` and the following page appears where u can provide a name to ur project and choose `Freestyle Project`
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/How%20to%20build%20job.png)
-- Now we can provide the required details like below
+3. Now we can provide the required details like below
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Jenkins%20job%20-%20constant%20integration%20with%20github.png)
-- Under build, use `Execute shell` and put the following commands:
-![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Build-execute%20shell.png)
-- Now we need to generate a key. For doing this, go into ur `.ssh` directory path and follow the `steps to link github and local host securely through keys` from above
-- Once created, we need to copy the public key and then go to your github and click on `settings` on the top next to the repository name
+4. Now we need to generate a key. For doing this, go into ur `.ssh` directory path and follow the `steps to link github and local host securely through keys` from above
+5. Once created, we need to copy the public key and then go to your github and click on `settings` on the top next to the repository name
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Deploying%20keys.png)
-- Provide a name for the key and paste the `keyname.pub` into it
-- Now we need to put the private key into Jenkins
-- Go back to Jenkins and provide the http key of your github repository like below
+6. Provide a name for the key and paste the `keyname.pub` into it
+7. Now we need to put the private key into Jenkins
+8. Go back to Jenkins and provide the http key of your github repository like below
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Providing%20the%20github%20http%20in%20jenkins.png)
-- Scroll down and under `Office 365 connector`, select `Restrict where this project can be run` like below. This is done so that we run the tests in the `Agent node` and not on the `Master node`.
+9. Scroll down and under `Office 365 connector`, select `Restrict where this project can be run` like below. This is done so that we run the tests in the `Agent node` and not on the `Master node`.
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Restricting%20the%20tests%20in%20agent%20node.png)
-- Now on the next SCM section, choose `Git` and copy your repository URL (SSH) from github into it like below
+10. Now on the next SCM section, choose `Git` and copy your repository URL (SSH) from github into it like below
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Using%20ssh%20from%20github%20for%20git%20repository%20URL.png) 
-- Now for the `credentials` section, click on `Add` and this will open up a new box. Here choose `SSH Username with private key` like below
+---
+#### Creating webhook
+- go to your github and go to `settings` and choose `webhook` like below
+![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Webhook1.png)
+- on the payload URL, copy `JENKINS URL/github-webhook/` and select content type as `application/json`. Under events, choose `send me everything`
+- Make sure to `git pull` after any changes you make to your file in the local host and then `git add` and then `git commit` and then `git push`
+---
+11. Now for the `credentials` section, click on `Add` and this will open up a new box. Here choose `SSH Username with private key` like below
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Jenkins%20Credentials%20for%20git1%20.png)
-- Now select `Private Key -> Enter directly` and copy the private key from .ssh and paste it under `Key` like below
+12. Now select `Private Key -> Enter directly` and copy the private key from .ssh and paste it under `Key` like below
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Entering%20private%20key%20as%20credentials%20for%20git2.png)
-- Under Branches to build section, type `main` instead of the default `master`
-- Under the `Build environment` section, choose `Provide Node & npm bin/folder to PATH` like below
+13. Under Branches to build section, type `main` instead of the default `master`
+14. Under the `Build environment` section, choose `Provide Node & npm bin/folder to PATH` like below
 ![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Build%20Environment.png)
+15. Under `Build` , choose `Execute shell` and type the following commands
+![Image Link](https://github.com/vivrk2989/CICD_jenkins_aws/blob/main/Images/Execute%20shell%20commands.png)
+16. Click `Apply` and `Save`
+17. Now on your terminal create a new branch `dev` using `git checkout -b dev`
+18. Now go back into JENKINS and create a new job for merging the dev branch. Follow the same steps as above. 
+19. Under the Branches to build section, type `Dev` instead of `main`
+20. 
+
 
 
